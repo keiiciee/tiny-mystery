@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="theme-color"
+        content="#8064a2"
+    >
+
+    <meta
+        name="description"
+        content="Tiny Mystery — solve short mysteries, inspect clues, and find the culprit."
+    >
+
+    <title>Tiny Mystery</title>
+
+    <link
+        rel="icon"
+        href="./favicon.png?v=1"
+        type="image/png"
+    >
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+</head>
+
+<body>
+
+    <div class="app">
+
+        <!-- =========================
+             HEADER
+        ========================== -->
+
+        <header class="top-bar">
+
+            <div class="brand">
+
+                <div class="brand-icon">
+                    🔎
+                </div>
+
+                <div>
+                    <h1>Tiny Mystery</h1>
+                    <p>Look closer. Think twice.</p>
+                </div>
+
+            </div>
+
+            <div class="header-actions">
+
+                <button
+                    id="soundButton"
+                    class="icon-button"
+                    type="button"
+                    aria-label="Toggle sound"
+                >
+                    🔊
+                </button>
+
+                <button
+                    id="themeButton"
+                    class="icon-button"
+                    type="button"
+                    aria-label="Toggle dark mode"
+                >
+                    🌙
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <!-- =========================
+             HOME SCREEN
+        ========================== -->
+
+        <main
+            id="homeScreen"
+            class="screen active"
+        >
+
+            <section class="hero-card">
+
+                <div class="hero-icon">
+                    🔎
+                </div>
+
+                <span class="eyebrow">
+                    A MINI DETECTIVE GAME
+                </span>
+
+                <h2>
+                    Can you solve the mystery?
+                </h2>
+
+                <p class="hero-text">
+                    Read the story, inspect the suspects,
+                    study the clues, and figure out who did it.
+                </p>
+
+                <div class="stats-row">
+
+                    <div class="stat-box">
+                        <strong id="homeSolved">
+                            0
+                        </strong>
+                        <span>Solved</span>
+                    </div>
+
+                    <div class="stat-box">
+                        <strong id="homeStreak">
+                            0
+                        </strong>
+                        <span>Streak</span>
+                    </div>
+
+                    <div class="stat-box">
+                        <strong id="homeBest">
+                            0
+                        </strong>
+                        <span>Best Score</span>
+                    </div>
+
+                </div>
+
+                <button
+                    id="startButton"
+                    class="primary-button"
+                    type="button"
+                >
+                    Start Mystery
+                </button>
+
+                <button
+                    id="howToPlayButton"
+                    class="text-button"
+                    type="button"
+                >
+                    How to play
+                </button>
+
+            </section>
+
+        </main>
+
+
+        <!-- =========================
+             CASE SCREEN
+        ========================== -->
+
+        <main
+            id="caseScreen"
+            class="screen"
+        >
+
+            <!-- CASE HEADER -->
+
+            <section class="case-top">
+
+                <div>
+
+                    <span class="eyebrow">
+                        CASE
+                    </span>
+
+                    <h2 id="caseTitle">
+                        The Missing Cookie
+                    </h2>
+
+                </div>
+
+                <div class="case-number">
+                    Case
+                    <strong id="caseNumber">
+                        1
+                    </strong>
+                </div>
+
+            </section>
+
+
+            <!-- SCORE BAR -->
+
+            <section class="score-bar">
+
+                <div>
+                    <span>Score</span>
+                    <strong id="score">
+                        0
+                    </strong>
+                </div>
+
+                <div>
+                    <span>Streak</span>
+                    <strong id="streak">
+                        0
+                    </strong>
+                </div>
+
+                <div>
+                    <span>Clues</span>
+                    <strong id="clueCount">
+                        0/3
+                    </strong>
+                </div>
+
+            </section>
+
+
+            <!-- STORY -->
+
+            <section class="story-card">
+
+                <div class="section-title">
+
+                    <span class="section-icon">
+                        📖
+                    </span>
+
+                    <h3>
+                        What happened?
+                    </h3>
+
+                </div>
+
+                <p id="caseStory">
+                    Someone took the last cookie from the kitchen.
+                </p>
+
+            </section>
+
+
+            <!-- SUSPECTS -->
+
+            <section class="section">
+
+                <div class="section-heading">
+
+                    <div>
+                        <span class="eyebrow">
+                            INVESTIGATE
+                        </span>
+
+                        <h3>
+                            Suspects
+                        </h3>
+                    </div>
+
+                    <span
+                        id="suspectHint"
+                        class="small-note"
+                    >
+                        Tap a suspect to inspect
+                    </span>
+
+                </div>
+
+                <div
+                    id="suspectsGrid"
+                    class="suspects-grid"
+                ></div>
+
+            </section>
+
+
+            <!-- CLUES -->
+
+            <section class="section">
+
+                <div class="section-heading">
+
+                    <div>
+                        <span class="eyebrow">
+                            LOOK CLOSER
+                        </span>
+
+                        <h3>
+                            Clues
+                        </h3>
+                    </div>
+
+                    <span class="small-note">
+                        Find the connection
+                    </span>
+
+                </div>
+
+                <div
+                    id="cluesGrid"
+                    class="clues-grid"
+                ></div>
+
+            </section>
+
+
+            <!-- ACCUSATION -->
+
+            <section class="accusation-card">
+
+                <div class="accusation-icon">
+                    ⚖️
+                </div>
+
+                <div class="accusation-content">
+
+                    <span class="eyebrow">
+                        READY?
+                    </span>
+
+                    <h3>
+                        Who did it?
+                    </h3>
+
+                    <p>
+                        Choose the suspect you believe
+                        is responsible.
+                    </p>
+
+                </div>
+
+                <button
+                    id="accuseButton"
+                    class="primary-button"
+                    type="button"
+                >
+                    Make an Accusation
+                </button>
+
+            </section>
+
+        </main>
+
+
+        <!-- =========================
+             RESULT SCREEN
+        ========================== -->
+
+        <main
+            id="resultScreen"
+            class="screen"
+        >
+
+            <section class="result-card">
+
+                <div
+                    id="resultIcon"
+                    class="result-icon"
+                >
+                    🏆
+                </div>
+
+                <span
+                    id="resultLabel"
+                    class="eyebrow"
+                >
+                    CASE SOLVED
+                </span>
+
+                <h2 id="resultTitle">
+                    You got it!
+                </h2>
+
+                <p id="resultText">
+                    Great detective work.
+                </p>
+
+                <div class="result-score">
+
+                    <span>Points Earned</span>
+
+                    <strong id="earnedPoints">
+                        +100
+                    </strong>
+
+                </div>
+
+                <div class="result-details">
+
+                    <div>
+                        <span>Correct</span>
+                        <strong id="resultCorrect">
+                            Yes
+                        </strong>
+                    </div>
+
+                    <div>
+                        <span>Clues Used</span>
+                        <strong id="resultClues">
+                            3
+                        </strong>
+                    </div>
+
+                    <div>
+                        <span>Streak</span>
+                        <strong id="resultStreak">
+                            1
+                        </strong>
+                    </div>
+
+                </div>
+
+                <div
+                    id="newBest"
+                    class="new-best hidden"
+                >
+                    🏆 NEW BEST SCORE
+                </div>
+
+                <button
+                    id="nextCaseButton"
+                    class="primary-button"
+                    type="button"
+                >
+                    Next Mystery
+                </button>
+
+                <button
+                    id="homeFromResultButton"
+                    class="text-button"
+                    type="button"
+                >
+                    Back to Home
+                </button>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <!-- =========================
+         ACCUSATION MODAL
+    ========================== -->
+
+    <div
+        id="accusationModal"
+        class="modal-overlay"
+        aria-hidden="true"
+    >
+
+        <div
+            class="modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="accusationTitle"
+        >
+
+            <button
+                id="closeAccusationButton"
+                class="modal-close"
+                type="button"
+                aria-label="Close"
+            >
+                ×
+            </button>
+
+            <div class="modal-icon">
+                ⚖️
+            </div>
+
+            <span class="eyebrow">
+                FINAL DECISION
+            </span>
+
+            <h2 id="accusationTitle">
+                Who do you accuse?
+            </h2>
+
+            <p class="modal-description">
+                Choose carefully. You can only make
+                one accusation for this case.
+            </p>
+
+            <div
+                id="accusationOptions"
+                class="accusation-options"
+            ></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         INFO MODAL
+    ========================== -->
+
+    <div
+        id="infoModal"
+        class="modal-overlay"
+        aria-hidden="true"
+    >
+
+        <div class="modal">
+
+            <button
+                id="closeInfoButton"
+                class="modal-close"
+                type="button"
+                aria-label="Close"
+            >
+                ×
+            </button>
+
+            <div class="modal-icon">
+                🔎
+            </div>
+
+            <span class="eyebrow">
+                HOW TO PLAY
+            </span>
+
+            <h2>
+                Become the detective
+            </h2>
+
+            <div class="instructions">
+
+                <div class="instruction">
+                    <span>1</span>
+                    <p>
+                        Read the mystery carefully.
+                    </p>
+                </div>
+
+                <div class="instruction">
+                    <span>2</span>
+                    <p>
+                        Tap each suspect to learn
+                        what they were doing.
+                    </p>
+                </div>
+
+                <div class="instruction">
+                    <span>3</span>
+                    <p>
+                        Open the clues and look
+                        for connections.
+                    </p>
+                </div>
+
+                <div class="instruction">
+                    <span>4</span>
+                    <p>
+                        When you're ready, make
+                        your accusation.
+                    </p>
+                </div>
+
+                <div class="instruction">
+                    <span>5</span>
+                    <p>
+                        Solve cases in a row to
+                        build your detective streak.
+                    </p>
+                </div>
+
+            </div>
+
+            <button
+                id="closeInfoAction"
+                class="primary-button"
+                type="button"
+            >
+                Got It
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         TOAST
+    ========================== -->
+
+    <div
+        id="toast"
+        class="toast"
+        aria-live="polite"
+    ></div>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
